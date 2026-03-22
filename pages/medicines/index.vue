@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AddMedicineModal from '~/components/medicines/add-medicine-modal.vue';
 import EditMedicineModal from '~/components/medicines/edit-medicine-modal.vue';
-import type { Medicine } from '~/libs/types/medicine';
+import type { Medicine, MedicineIntervalUnit } from '~/libs/types/medicine';
 import { useMedicineStorage } from '~/composables/use-medicine-storage';
 
 
@@ -26,14 +26,14 @@ import { useMedicineStorage } from '~/composables/use-medicine-storage';
          isOpenEditMedicineModal.value = true
         }
 
-        function displayIntervals(intervals: number[]) {
+        function displayIntervals(intervals: number[], intervalUnit: MedicineIntervalUnit) {
            return intervals.map((interval, index) => {
               if (index === 0) {
                  return '0'
               } else {
                  return `${interval}`
               }
-           }).join(' - ')+ ' วัน'
+           }).join(' - ')+ (intervalUnit === 'DAY' ? ' วัน' : ' เดือน')
         }
 </script>
 <template>
@@ -47,21 +47,21 @@ import { useMedicineStorage } from '~/composables/use-medicine-storage';
             </div>
             <div class="flex flex-col  gap-2 w-full my-4  py-2">
                <template v-for="medicine in medicines" :key="medicine.id">
-               <UiPanel variant="gray2" class="grid grid-cols-3 gap-4 px-4 py-2">
-                  <p>{{medicine.name}}</p>
-                  <p>
-                    {{ displayIntervals(medicine.intervals) }}
-                  </p>
-                  <div class="flex justify-end">
-                     <div class="flex gap-2 self-end ">
-                     <UiButton @click="handleClickEditMedicine(medicine)">edit</UiButton>
-                     <UiButton variant="danger" @click="handleClickDeleteMedicine(medicine)">delete</UiButton>
-                  </div>
-                  </div>
-                 
-                 
-               </UiPanel>
-                  </template>
+                  <UiPanel variant="gray2" class="grid grid-cols-3 gap-4 px-4 py-2">
+                     <p>{{medicine.name}}</p>
+                     <p>
+                     {{ displayIntervals(medicine.intervals,medicine.interval_unit) }}
+                     </p>
+                     <div class="flex justify-end">
+                        <div class="flex gap-2 self-end ">
+                        <UiButton @click="handleClickEditMedicine(medicine)">edit</UiButton>
+                        <UiButton variant="danger" @click="handleClickDeleteMedicine(medicine)">delete</UiButton>
+                     </div>
+                     </div>
+                  
+                  
+                  </UiPanel>
+               </template>
              
             </div>
         </UiPanel>

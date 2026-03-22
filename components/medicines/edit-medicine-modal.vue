@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useMedicineStorage } from '~/composables/use-medicine-storage';
-import type { Medicine } from '~/libs/types/medicine';
+import type { Medicine, MedicineIntervalUnit } from '~/libs/types/medicine';
 
 const props = defineProps<{
    open?: boolean
@@ -11,18 +11,18 @@ const emit = defineEmits<{
    (e:'success'): void
 }>()
 
-const { updateMedicine } = useMedicineStorage()
+const { updateMedicine, medicineIntervalUnitsOptions } = useMedicineStorage()
 const name = ref<string>('')
 const intervals = ref<number[]>([0])
+const intervalUnit = ref<MedicineIntervalUnit>('DAY')
 
-const modifiedIntervals = ref<number[]>([0])
     // TODO :: add form control
 
 function handleUpdateMedicine(){
 
     // TODO:: check duplicate name
     if (props.target) {
-        updateMedicine({ ...props.target, name: name.value, intervals: intervals.value })
+        updateMedicine({ ...props.target, name: name.value, intervals: intervals.value, interval_unit: intervalUnit.value })
         emit('success')
     }
     emit('success')
@@ -42,6 +42,7 @@ function handleCloseModal(){
 onUpdated(() => {
    name.value = props.target?.name || ''
    intervals.value = props.target?.intervals?.map((v) => v) || [0]
+   intervalUnit.value = props.target?.interval_unit || 'DAY'
 })
 </script>
 
@@ -56,9 +57,14 @@ onUpdated(() => {
         <UiFormControl required>
             <UiTextInput v-model="name" placeholder="ชื่อยา" />
         </UiFormControl>
-        <div class="flex gap-2  py-4">
-            <UiButton @click="handleAddInterval">เพิ่มเข็ม</UiButton>
-            <UiButton @click="handleDecreaseInterval">ลดเข็ม</UiButton>
+        <div class="flex gap-2  py-4 justify-between">
+            <div class="flex gap-2">
+                <UiButton @click="handleAddInterval">เพิ่มเข็ม</UiButton>
+                <UiButton @click="handleDecreaseInterval">ลดเข็ม</UiButton>
+            </div>
+            <div>
+                <UiSelect v-model="intervalUnit" :options="medicineIntervalUnitsOptions"  />
+            </div>
         </div>
         <div class="grid grid-cols-2 gap-2">
             <template v-for="(_, index) in intervals" :key="index">
@@ -67,7 +73,7 @@ onUpdated(() => {
                 <UiFormControl :disabled="index==0" required>
                     <UiNumberInput v-model="intervals[index]"  placeholder="ระยะเวลาห่างเข็ม (วัน)" />
                 </UiFormControl> 
-                <p>วัน</p>
+                <p>{{ intervalUnit === 'DAY' ? 'วัน' : 'เดือน' }}</p>
                 </div>       
             </template>
         </div>
