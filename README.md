@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-# phama-print
-for BimBim
-=======
 # Nuxt Minimal Starter
+
+For BimBim~~
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
@@ -77,4 +75,3 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
->>>>>>> 7a0e93dbf778fc21df9dc7f59d4e42868f2fd8ed

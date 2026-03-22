@@ -1,0 +1,128 @@
+@import "tailwindcss";
+@import "./variables.css";
+@import "./fonts.css";
+
+@layer base {
+  body {
+    background-color: grey;
+  }
+}
+
+@theme {
+  /* This replaces your 'container' config block */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* Tailwind v4 uses CSS variables for theme overrides */
+  --spacing-container-padding: 1rem;
+
+  /* --- Font Families --- */
+  --font-hl: var(--hl-font-family);
+  --font-de: var(--de-font-family);
+
+  /* --- Basic Colors --- */
+  --color-black: rgb(var(--basic-black-color));
+  --color-white: rgb(var(--basic-white-color));
+
+  /* --- Gray Scale --- */
+  --color-gray-100: rgb(var(--basic-gray-100-color));
+  --color-gray-90: rgb(var(--basic-gray-90-color));
+  --color-gray-80: rgb(var(--basic-gray-80-color));
+  --color-gray-70: rgb(var(--basic-gray-70-color));
+  --color-gray-60: rgb(var(--basic-gray-60-color));
+  --color-gray-50: rgb(var(--basic-gray-50-color));
+  --color-gray-40: rgb(var(--basic-gray-40-color));
+  --color-gray-30: rgb(var(--basic-gray-30-color));
+  --color-gray-20: rgb(var(--basic-gray-20-color));
+  --color-gray-10: rgb(var(--basic-gray-10-color));
+
+  /* --- CI Colors --- */
+  --color-ci-primary: rgb(var(--ci-primary-color));
+  --color-ci-secondary: rgb(var(--ci-secondary-color));
+  --color-ci-tertiary: rgb(var(--ci-tertiary-color));
+
+  /* --- CTA Colors --- */
+  --color-cta-primary: rgb(var(--cta-primary-default-color));
+  --color-cta-primary-hover: rgb(var(--cta-primary-hover-color));
+  --color-cta-primary-clicked: rgb(var(--cta-primary-clicked-color));
+  --color-cta-primary-disable: rgb(var(--cta-primary-disable-color));
+
+  --color-cta-success: rgb(var(--cta-success-default-color));
+  --color-cta-success-hover: rgb(var(--cta-success-hover-color));
+  --color-cta-success-clicked: rgb(var(--cta-success-clicked-color));
+  --color-cta-success-disable: rgb(var(--cta-success-disable-color));
+
+  --color-cta-warning: rgb(var(--cta-warning-default-color));
+  --color-cta-warning-hover: rgb(var(--cta-warning-hover-color));
+  --color-cta-warning-clicked: rgb(var(--cta-warning-clicked-color));
+  --color-cta-warning-disable: rgb(var(--cta-warning-disable-color));
+
+  --color-cta-danger: rgb(var(--cta-danger-default-color));
+  --color-cta-danger-hover: rgb(var(--cta-danger-hover-color));
+  --color-cta-danger-clicked: rgb(var(--cta-danger-clicked-color));
+  --color-cta-danger-disable: rgb(var(--cta-danger-disable-color));
+
+  /* --- Divider --- */
+  --color-divider-1: rgb(var(--divider-divider1-color));
+  --color-divider-2: rgb(var(--divider-divider2-color));
+  --color-divider-3: rgb(var(--divider-divider3-color));
+
+  /* --- Panels --- */
+  --color-panels-white: rgb(var(--panels-white-color));
+  --color-panels-gray-1: rgb(var(--panels-gray-1-color));
+  --color-panels-gray-2: rgb(var(--panels-gray-2-color));
+  --color-panels-outline: rgb(var(--panels-outline-color));
+
+  /* --- Checkbox & Radio --- */
+  --color-checkbox-radio-enable-bg: rgb(var(--checkbox-radio-enable-bg-color));
+  --color-checkbox-radio-enable-border: rgb(
+    var(--checkbox-radio-enable-border-color)
+  );
+  --color-checkbox-radio-enable-selected: rgb(
+    var(--checkbox-radio-enable-selected-color)
+  );
+  --color-checkbox-radio-disable-bg: rgb(
+    var(--checkbox-radio-disable-bg-color)
+  );
+  --color-checkbox-radio-disable-border: rgb(
+    var(--checkbox-radio-disable-border-color)
+  );
+
+  /* --- Input Fields --- */
+  --color-input-field-bg-enable: rgb(var(--input-field-bg-enable-color));
+  --color-input-field-bg-disable: rgb(var(--input-field-bg-disable-color));
+  --color-input-field-border: rgb(var(--input-field-border-default-color));
+  --color-input-field-border-focused: rgb(
+    var(--input-field-border-focused-color)
+  );
+  --color-input-field-border-focused-effect: var(
+    --input-field-border-focused-effect-color
+  );
+  --color-input-field-border-invalid: rgb(
+    var(--input-field-border-invalid-color)
+  );
+
+  /* --- Feedback --- */
+  --color-feedback-bg-hover: var(--feedback-bg-hover-color);
+  --color-feedback-bg-clicked: var(--feedback-bg-clicked-color);
+
+  /* --- Badges --- */
+  --color-badge-neutral: rgb(var(--badge-neutral-bg-color));
+  --color-badge-neutral-hover: rgb(var(--badge-neutral-hover-color));
+  --color-badge-success: rgb(var(--badge-success-bg-color));
+  --color-badge-success-hover: rgb(var(--badge-success-hover-color));
+  --color-badge-info: rgb(var(--badge-info-bg-color));
+  --color-badge-info-hover: rgb(var(--badge-info-hover-color));
+  --color-badge-warning: rgb(var(--badge-warning-bg-color));
+  --color-badge-warning-hover: rgb(var(--badge-warning-hover-color));
+  --color-badge-danger: rgb(var(--badge-danger-bg-color));
+  --color-badge-danger-hover: rgb(var(--badge-danger-hover-color));
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: var(--spacing-container-padding);
+}

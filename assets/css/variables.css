@@ -1,0 +1,103 @@
+:root {
+  /* CI */
+  --ci-primary-color: 1, 184, 220;
+  --ci-secondary-color: 230, 144, 157;
+  --ci-tertiary-color: 255, 121, 85;
+
+  /* Divider */
+  --divider-divider1-color: 224, 224, 224;
+  --divider-divider2-color: 189, 189, 189;
+  --divider-divider3-color: 234, 235, 237;
+
+  /* Basic */
+  --basic-black-color: 30, 31, 32;
+  --basic-white-color: 255, 255, 255;
+
+  --basic-gray-100-color: 44, 44, 44;
+  --basic-gray-90-color: 66, 66, 66;
+  --basic-gray-80-color: 97, 97, 97;
+  --basic-gray-70-color: 117, 117, 117;
+  --basic-gray-60-color: 158, 158, 158;
+  --basic-gray-50-color: 189, 189, 189;
+  --basic-gray-40-color: 224, 224, 224;
+  --basic-gray-30-color: 238, 238, 238;
+  --basic-gray-20-color: 245, 245, 245;
+  --basic-gray-10-color: 250, 250, 250;
+
+  /* CTA */
+  --cta-primary-default-color: 1, 184, 220;
+  --cta-primary-hover-color: 5, 202, 240;
+  --cta-primary-clicked-color: 4, 165, 196;
+  --cta-primary-disable-color: 189, 189, 189;
+
+  --cta-success-default-color: 63, 176, 97;
+  --cta-success-hover-color: 198, 242, 211;
+  --cta-success-clicked-color: 59, 160, 89;
+  --cta-success-disable-color: 189, 189, 189;
+
+  --cta-warning-default-color: 255, 154, 53;
+  --cta-warning-hover-color: 255, 192, 97;
+  --cta-warning-clicked-color: 244, 122, 0;
+  --cta-warning-disable-color: 189, 189, 189;
+
+  --cta-danger-default-color: 242, 85, 85;
+  --cta-danger-hover-color: 255, 128, 142;
+  --cta-danger-clicked-color: 220, 64, 64;
+  --cta-danger-disable-color: 189, 189, 189;
+
+  /* Panels */
+  --panels-white-color: 255, 255, 255;
+  --panels-gray-1-color: 238, 238, 238;
+  --panels-gray-2-color: 245, 245, 245;
+  --panels-outline-color: 224, 224, 224;
+
+  /* Checkbox, Radio */
+  --checkbox-radio-enable-bg-color: 255, 255, 255;
+  --checkbox-radio-enable-border-color: 158, 158, 158;
+  --checkbox-radio-enable-selected-color: 1, 184, 220;
+  --checkbox-radio-disable-bg-color: 224, 224, 224;
+  --checkbox-radio-disable-border-color: 224, 224, 224;
+
+  /* Input Field */
+  --input-field-bg-enable-color: 255, 255, 255;
+  --input-field-bg-disable-color: 245, 245, 245;
+  --input-field-border-default-color: 224, 224, 224;
+  --input-field-border-focused-color: 97, 97, 97;
+  --input-field-border-focused-effect-color: rgba(97, 97, 97, 0.2);
+  --input-field-border-invalid-color: 242, 85, 85;
+
+  /* Feedback */
+  --feedback-bg-hover-color: rgba(44, 44, 44, 0.06);
+  --feedback-bg-clicked-color: rgba(44, 44, 44, 0.16);
+
+  /* Badge */
+  --badge-neutral-bg-color: 224, 224, 224;
+  --badge-neutral-hover-color: 97, 97, 97;
+  --badge-success-bg-color: 218, 238, 224;
+  --badge-success-hover-color: 19, 149, 57;
+  --badge-info-bg-color: 235, 246, 255;
+  --badge-info-hover-color: 13, 140, 238;
+  --badge-warning-bg-color: 254, 241, 204;
+  --badge-warning-hover-color: 244, 122, 0;
+  --badge-danger-bg-color: 254, 242, 242;
+  --badge-danger-hover-color: 220, 64, 64;
+  --badge-indigo-bg-color: 224, 231, 255;
+  --badge-indigo-hover-color: 67, 56, 202;
+  --badge-purple-bg-color: 243, 232, 255;
+  --badge-purple-hover-color: 126, 34, 206;
+  --badge-pink-bg-color: 252, 231, 243;
+  --badge-pink-hover-color: 190, 24, 93;
+
+  /* Font Family */
+  --hl-font-family: 'Sukhumvit Set', sans-serif;
+  --de-font-family: 'Sarabun', sans-serif;
+
+  --popper-theme-background-color: #333333;
+  --popper-theme-background-color-hover: #333333;
+  --popper-theme-text-color: #ffffff;
+  --popper-theme-border-width: 0px;
+  --popper-theme-border-style: solid;
+  --popper-theme-border-radius: 6px;
+  --popper-theme-padding: 4px 8px;
+  --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+}
