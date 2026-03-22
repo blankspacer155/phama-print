@@ -21,6 +21,7 @@
     "numeral": "^2.0.6",
     "nuxt": "^4.4.2",
     "nuxt-headlessui": "1.2.2",
+    "pdfmake": "^0.3.7",
     "tailwind-merge": "^2.5.2",
     "tailwindcss": "^4.1.18",
     "vue": "^3.5.30",

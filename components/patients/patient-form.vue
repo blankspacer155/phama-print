@@ -3,6 +3,7 @@ import {useForm} from 'vee-validate'
 import type { PatientRequest } from '~/libs/types/patient';
 import { useFormProvider } from '@/composables/use-form-context';
 import { useDoctorStorage } from '~/composables/use-doctor-storage';
+import { usePatientPdf } from '~/composables/use-patient-pdf';
 
 const emit = defineEmits<{
     (e:'submit', data: PatientRequest): void
@@ -10,6 +11,7 @@ const emit = defineEmits<{
 
 const { doctorOptions } = useDoctorStorage()
 const { medicineOptions } = useMedicineStorage()
+const {generatePatientPdf} = usePatientPdf()
 const form = useForm<PatientRequest>({
     initialValues: {
         doctorId: '',
@@ -31,6 +33,8 @@ function handleSubmit(){
         date: date.value,
         medicineId: medicineId.value
     }
+    generatePatientPdf(body)
+
     resetForm()
     emit('submit',body)
 }
