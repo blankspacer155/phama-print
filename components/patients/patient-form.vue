@@ -28,6 +28,12 @@ const [date] = defineField('date')
 const [medicineId] = defineField('medicineId')
 
 function handleSubmit(){
+
+    if (!medicineId.value || !date.value ) {
+        alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+        return;
+    }
+    
     const body: PatientRequest = {
         doctorId: doctorId.value,
         date: date.value,

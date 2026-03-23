@@ -19,6 +19,9 @@ export function useDoctorStorage(){
         deleteDoctor: (doctor: Doctor) => {
             const updatedDoctors = doctorStorage.value.filter((d: Doctor) => d.id !== doctor.id);
             doctorStorage.value = updatedDoctors;
+        },
+        getDoctorById: (id: string) => {
+            return doctorStorage.value.find((d: Doctor) => d.id === id);
         }
     };
 }

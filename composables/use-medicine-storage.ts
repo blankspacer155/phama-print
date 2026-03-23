@@ -1,4 +1,4 @@
-import { useStorage } from "@vueuse/core";
+import { get, useStorage } from "@vueuse/core";
 import { MEDICINE_INTERVAL_UNIT_LABELS } from "~/libs/constants";
 import type { Medicine } from "~/libs/types/medicine";
 
@@ -21,6 +21,10 @@ export function useMedicineStorage(){
         deleteMedicine: (medicine: Medicine) => {
             const updatedMedicines = medicineStorage.value.filter((m: Medicine) => m.id !== medicine.id);
             medicineStorage.value = updatedMedicines;
+        },
+        getMedicineById: (id: string) => {
+            return medicineStorage.value.find((m: Medicine) => m.id === id);
         }
+
     };
 }
