@@ -32,7 +32,7 @@ jobs:
         run: pnpm install
 
       - name: Generate Static Site
-        run: pnpm run generate
+        run: npx nuxi build --preset github_pages
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
