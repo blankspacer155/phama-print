@@ -80,7 +80,7 @@ export function usePatientPdf() {
         },
         ...appointmentDateString.map((dateString,index)=>{
           return {
-          text: `เข็มที่ ${index + 1}: ${dateString}  ผู้ฉีด ${doctor ? doctor.name : '__________'} วันที่ฉีด __________`,
+          text: `เข็มที่ ${index + 1}: ${dateString}  ผู้ฉีด ${doctor ? doctor.name : '____________________'} วันที่ฉีด ____________________`,
           margin: [15, 10, 0, 0] ,
           style: 'big'
           }
