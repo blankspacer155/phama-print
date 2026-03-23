@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import {useForm} from 'vee-validate';
 import { useMedicineStorage } from '~/composables/use-medicine-storage';
-import type { MEDICINE_INTERVAL_UNITS } from '~/libs/constants';
-import type { MedicineIntervalUnit } from '~/libs/types/medicine';
+import type { Medicine } from '~/libs/types/medicine';
+import { useFormProvider } from '@/composables/use-form-context';
 
 const props = defineProps<{
    open?: boolean
@@ -12,17 +13,38 @@ const emit = defineEmits<{
 }>()
 
 const { addMedicine, medicineIntervalUnitsOptions } = useMedicineStorage()
-const name = ref<string>('')
-const intervals = ref<number[]>([0])
-const intervalUnit = ref<MedicineIntervalUnit>('DAY')
+const form = useForm<Medicine>({
+    initialValues: {
+        id: '',
+        name: '',
+        description: '',
+        intervals: [0],
+        interval_unit: 'DAY'
+    }
+})
+useFormProvider(form)
+const {defineField,resetForm} = form
+
+const [name] = defineField('name')
+const [intervals] = defineField('intervals')
+const [intervalUnit] = defineField('interval_unit')
+const [description] = defineField('description')
+
+
     // TODO :: add form control
 
 function handleAddMedicine(){
 
     // TODO:: check duplicate name
-    addMedicine({ id: crypto.randomUUID(), name: name.value, intervals: intervals.value, interval_unit: intervalUnit.value })
-    name.value = ''
-    intervals.value = [0]
+    const newMedicine: Medicine = {
+        id: crypto.randomUUID(),
+        name: name.value,
+        description: description.value,
+        intervals: intervals.value,
+        interval_unit: intervalUnit.value
+    }
+    addMedicine(newMedicine)
+    resetForm()
     emit('success')
 }
 function handleAddInterval(){
@@ -34,9 +56,7 @@ function handleDecreaseInterval(){
    }
 }
 function handleCloseModal(){
-   name.value = ''
-   intervals.value = [0]
-   intervalUnit.value = 'DAY'
+   resetForm()
    emit('close')
 }
 </script>
@@ -48,9 +68,14 @@ function handleCloseModal(){
         title="เพิ่มยา"
     />
     <UiModalBody>
-    <UiFormContainer>
-        <UiFormControl required>
+    <UiFormContainer class=" flex flex-col gap-2">
+        <UiFormControl>
+            <UiFormLabel>ชื่อยา</UiFormLabel>
             <UiTextInput v-model="name" placeholder="ชื่อยา" />
+        </UiFormControl>
+        <UiFormControl>
+            <UiFormLabel>คำอธิบาย</UiFormLabel>
+            <UiTextInput v-model="description" placeholder="คำอธิบาย" />
         </UiFormControl>
         <div class="flex gap-2  py-4 justify-between">
             <div class="flex gap-2">
