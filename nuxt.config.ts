@@ -14,5 +14,10 @@ export default defineNuxtConfig({
   modules: ['nuxt-headlessui', '@vee-validate/nuxt', '@nuxt/icon'],
   build: {
     transpile: ['@vuepic/vue-datepicker']
-  }
+  },
+  app: {
+    baseURL: '/phama-print/', // Must match your repo name exactly
+    buildAssetsDir: 'assets',
+  },
+  ssr: false, // Required for localStorage-based apps
 })
