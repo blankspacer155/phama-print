@@ -3,6 +3,7 @@ import {useForm} from 'vee-validate';
 import { useMedicineStorage } from '~/composables/use-medicine-storage';
 import type { Medicine } from '~/libs/types/medicine';
 import { useFormProvider } from '@/composables/use-form-context';
+import { medicineSchema } from '~/libs/validators/medicine';
 
 const props = defineProps<{
    open?: boolean
@@ -15,6 +16,7 @@ const emit = defineEmits<{
 
 const { updateMedicine, medicineIntervalUnitsOptions } = useMedicineStorage()
 const form = useForm<Medicine>({
+    validationSchema: toTypedSchema(medicineSchema),
     initialValues: {
         id: '',
         name: '',
@@ -24,16 +26,17 @@ const form = useForm<Medicine>({
     }
 })
 useFormProvider(form)
-const {defineField} = form
+const {defineField,resetForm,errors,validate} = form
 
 const [name] = defineField('name')
 const [intervals] = defineField('intervals')
 const [intervalUnit] = defineField('interval_unit')
 const [description] = defineField('description')
 
-    // TODO :: add form control
 
-function handleUpdateMedicine(){
+async function handleUpdateMedicine(){
+    const {valid} = await validate()
+    if(!valid ) return
     // TODO:: check duplicate name
         if (!props.target) return
         updateMedicine({...props.target,name: name.value, description: description.value, intervals: intervals.value, interval_unit: intervalUnit.value} )
@@ -48,6 +51,7 @@ function handleDecreaseInterval(){
    }
 }
 function handleCloseModal(){
+   resetForm()
    emit('close')
 }
 
@@ -61,19 +65,21 @@ onUpdated(() => {
 
 
 <template>
-  <UiModal :open="open" @close="$emit('close')">
+  <UiModal :open="open" @close="handleCloseModal">
     <UiModalHeader
         title="แก้ไขยา"
     />
     <UiModalBody>
        <UiFormContainer class=" flex flex-col gap-2">
-         <UiFormControl>
+         <UiFormControl :invalid="!!errors.name">
             <UiFormLabel>ชื่อยา</UiFormLabel>
             <UiTextInput v-model="name" placeholder="ชื่อยา" />
+            <UiFormErrorMessage>{{ errors.name }}</UiFormErrorMessage>
         </UiFormControl>
-        <UiFormControl>
+        <UiFormControl :invalid="!!errors.description">
             <UiFormLabel>คำอธิบาย</UiFormLabel>
             <UiTextInput v-model="description" placeholder="คำอธิบาย" />
+            <UiFormErrorMessage>{{ errors.description }}</UiFormErrorMessage>
         </UiFormControl>
         <div class="flex gap-2  py-4 justify-between">
             <div class="flex gap-2">

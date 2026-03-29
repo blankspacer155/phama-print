@@ -3,6 +3,7 @@ import {useForm} from 'vee-validate';
 import { useMedicineStorage } from '~/composables/use-medicine-storage';
 import type { Medicine } from '~/libs/types/medicine';
 import { useFormProvider } from '@/composables/use-form-context';
+import { medicineSchema } from '~/libs/validators/medicine';
 
 const props = defineProps<{
    open?: boolean
@@ -14,6 +15,7 @@ const emit = defineEmits<{
 
 const { addMedicine, medicineIntervalUnitsOptions } = useMedicineStorage()
 const form = useForm<Medicine>({
+    validationSchema: toTypedSchema(medicineSchema),
     initialValues: {
         id: '',
         name: '',
@@ -23,7 +25,7 @@ const form = useForm<Medicine>({
     }
 })
 useFormProvider(form)
-const {defineField,resetForm} = form
+const {defineField,resetForm,errors,validate} = form
 
 const [name] = defineField('name')
 const [intervals] = defineField('intervals')
@@ -31,10 +33,10 @@ const [intervalUnit] = defineField('interval_unit')
 const [description] = defineField('description')
 
 
-    // TODO :: add form control
 
-function handleAddMedicine(){
-
+async function handleAddMedicine(){
+    const {valid} = await validate()
+    if(!valid ) return
     // TODO:: check duplicate name
     const newMedicine: Medicine = {
         id: crypto.randomUUID(),
@@ -63,19 +65,21 @@ function handleCloseModal(){
 
 
 <template>
-   <UiModal :open="open" @close="$emit('close')">
+   <UiModal :open="open" @close="handleCloseModal">
     <UiModalHeader
         title="เพิ่มยา"
     />
     <UiModalBody>
     <UiFormContainer class=" flex flex-col gap-2">
-        <UiFormControl>
+        <UiFormControl :invalid="!!errors.name">
             <UiFormLabel>ชื่อยา</UiFormLabel>
             <UiTextInput v-model="name" placeholder="ชื่อยา" />
+            <UiFormErrorMessage>{{ errors.name }}</UiFormErrorMessage>
         </UiFormControl>
-        <UiFormControl>
+        <UiFormControl :invalid="!!errors.description">
             <UiFormLabel>คำอธิบาย</UiFormLabel>
             <UiTextInput v-model="description" placeholder="คำอธิบาย" />
+            <UiFormErrorMessage>{{ errors.description }}</UiFormErrorMessage>
         </UiFormControl>
         <div class="flex gap-2  py-4 justify-between">
             <div class="flex gap-2">
