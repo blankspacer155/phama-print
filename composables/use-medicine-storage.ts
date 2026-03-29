@@ -24,6 +24,21 @@ export function useMedicineStorage(){
         },
         getMedicineById: (id: string) => {
             return medicineStorage.value.find((m: Medicine) => m.id === id);
+        },
+        toggleDefaultMedicines: (targetId: string) =>{
+            const index = medicineStorage.value.findIndex((m: Medicine) => m.id === targetId);
+            if (index !== -1) {
+                const prevValue = medicineStorage.value[index]!.is_default;
+                // clear default flag for all medicines
+                medicineStorage.value.forEach((medicine: Medicine) => {
+                    medicine.is_default = false;
+                })
+                medicineStorage.value[index]!.is_default = !prevValue;
+            }
+        },
+        getDefaultMedicineId:() => {
+            const defaultMedicine = medicineStorage.value.find((m: Medicine) => m.is_default);
+            return defaultMedicine ? defaultMedicine.id : null;
         }
 
     };

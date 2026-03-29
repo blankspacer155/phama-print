@@ -5,7 +5,7 @@ import type { Medicine, MedicineIntervalUnit } from '~/libs/types/medicine';
 import { useMedicineStorage } from '~/composables/use-medicine-storage';
 
 
-      const { medicines,deleteMedicine } = useMedicineStorage()
+      const { medicines,deleteMedicine,toggleDefaultMedicines } = useMedicineStorage()
       const selectedMedicine = ref<Medicine>()
       const isOpenDeleteDialog = ref<boolean>(false)
       const isOpenAddMedicineModal = ref<boolean>(false)
@@ -65,6 +65,12 @@ import { useMedicineStorage } from '~/composables/use-medicine-storage';
                      <p>{{ medicine.description }}</p>
                      <div class="flex justify-end">
                         <div class="flex gap-2 self-end ">
+                           <template v-if="medicine.is_default">
+                           <Icon @click="toggleDefaultMedicines(medicine.id)" name="material-symbols:star" class="  text-yellow-300 self-center mr-4 cursor-pointer" size="32" />
+                           </template>
+                           <template v-else>
+                           <Icon @click="toggleDefaultMedicines(medicine.id)" name="material-symbols:star-outline" class=" text-gray-300 self-center mr-4 cursor-pointer" size="32" />
+                           </template>
                         <UiButton @click="handleClickEditMedicine(medicine)">แก้ไข</UiButton>
                         <UiButton variant="danger" @click="handleClickDeleteMedicine(medicine)">ลบ</UiButton>
                      </div>

@@ -21,7 +21,8 @@ const form = useForm<Medicine>({
         name: '',
         description: '',
         intervals: [0],
-        interval_unit: 'DAY'
+        interval_unit: 'DAY',
+        is_default: false
     }
 })
 useFormProvider(form)
@@ -31,6 +32,7 @@ const [name] = defineField('name')
 const [intervals] = defineField('intervals')
 const [intervalUnit] = defineField('interval_unit')
 const [description] = defineField('description')
+const [isDefault] = defineField('is_default')
 
 
 
@@ -43,7 +45,8 @@ async function handleAddMedicine(){
         name: name.value,
         description: description.value,
         intervals: intervals.value,
-        interval_unit: intervalUnit.value
+        interval_unit: intervalUnit.value,
+        is_default: isDefault.value
     }
     addMedicine(newMedicine)
     resetForm()

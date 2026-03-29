@@ -7,4 +7,5 @@ export interface Medicine{
     description: string // รายละเอียดยา
     intervals : number[] // ระยะห่างระหว่างเข็ม (หน่วย)
     interval_unit: MedicineIntervalUnit; // หน่วยของระยะห่าง (วัน, เดือน)
+    is_default: boolean // เป็นค่าเริ่มต้นหรือไม่
 }

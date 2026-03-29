@@ -11,14 +11,14 @@ const emit = defineEmits<{
 }>()
 
 const { doctorOptions } = useDoctorStorage()
-const { medicineOptions } = useMedicineStorage()
+const { medicineOptions,getDefaultMedicineId } = useMedicineStorage()
 const {generatePatientPdf} = usePatientPdf()
 const form = useForm<PatientRequest>({
     validationSchema: toTypedSchema(patientSchema),
     initialValues: {
         doctorId: '',
         date: '',
-        medicineId: ''
+        medicineId: getDefaultMedicineId() || ''
     }
 })
 useFormProvider(form)

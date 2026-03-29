@@ -22,7 +22,8 @@ const form = useForm<Medicine>({
         name: '',
         description: '',
         intervals: [0],
-        interval_unit: 'DAY'
+        interval_unit: 'DAY',
+        is_default: false
     }
 })
 useFormProvider(form)
@@ -32,6 +33,7 @@ const [name] = defineField('name')
 const [intervals] = defineField('intervals')
 const [intervalUnit] = defineField('interval_unit')
 const [description] = defineField('description')
+const [isDefault] = defineField('is_default')
 
 
 async function handleUpdateMedicine(){
@@ -39,7 +41,12 @@ async function handleUpdateMedicine(){
     if(!valid ) return
     // TODO:: check duplicate name
         if (!props.target) return
-        updateMedicine({...props.target,name: name.value, description: description.value, intervals: intervals.value, interval_unit: intervalUnit.value} )
+        updateMedicine({...props.target,
+            name: name.value, 
+            description: description.value, 
+            intervals: intervals.value, 
+            interval_unit: intervalUnit.value, 
+            is_default: isDefault.value} )
         emit('success')
 }
 function handleAddInterval(){
@@ -60,6 +67,7 @@ onUpdated(() => {
    intervals.value = props.target?.intervals?.map((v) => v) || [0]
    intervalUnit.value = props.target?.interval_unit || 'DAY'
    description.value = props.target?.description || ''
+   isDefault.value = props.target?.is_default || false
 })
 </script>
 
