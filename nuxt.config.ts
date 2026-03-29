@@ -8,6 +8,9 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss(),
     ],
+     optimizeDeps: {
+      exclude: ['vee-validate'],
+    },
   },
 
   css: [ '@/assets/css/global.css'],

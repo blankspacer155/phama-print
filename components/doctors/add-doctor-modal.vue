@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useDoctorStorage } from '~/composables/use-doctor-storage';
+import { doctorNameSchema } from '~/libs/validators/doctor';
 
 const props = defineProps<{
    open?: boolean
@@ -9,37 +10,57 @@ const emit = defineEmits<{
    (e:'success'): void
 }>()
 
-const { addDoctor } = useDoctorStorage()
-const name = ref<string>('')
-    // TODO :: add form control
+const { addDoctor,getDoctorByName } = useDoctorStorage()
+const {values,defineField,validate,errors,setErrors,resetForm} = useForm({
+    validationSchema: toTypedSchema(doctorNameSchema),
+    initialValues: {
+        name: ''
+    }
+})
+const [name] = defineField('name')
 
-function handleAddDoctor(){
 
-    // TODO:: check duplicate name
-    
-    addDoctor({ id: crypto.randomUUID(), name: name.value })
-    name.value = ''
+async function handleAddDoctor(){
+    const {valid} = await validate()
+    if(!valid || !values.name) return
+
+    // check duplicate name
+    if(getDoctorByName(values.name)){
+        setErrors({name: 'ชื่อหมอซ้ำ, กรุณาตรวจสอบใหม่อีกครั้ง'})
+        return
+    }
+
+    // trim name before save
+    const trimmedName = values.name.trimStart().trimEnd()
+    addDoctor({ id: crypto.randomUUID(), name: trimmedName })
+    resetForm()
     emit('success')
+}
+
+function handleClose(){
+    resetForm()
+    emit('close')
 }
 
 </script>
 
 
 <template>
-   <UiModal :open="open" @close="$emit('close')">
+   <UiModal :open="open" @close="handleClose">
     <UiModalHeader
         title="เพิ่มชื่อหมอ"
     />
     <UiModalBody>
-        <UiFormControl required>
+        <UiFormControl  :invalid="!!errors.name" >
             <UiTextInput v-model="name" placeholder="ชื่อหมอ" />
+            <UiFormErrorMessage>{{ errors.name }}</UiFormErrorMessage>
         </UiFormControl>
     </UiModalBody>
     <UiModalFooter
         secondary-button-text="ยกเลิก"
         primary-button-text="ยืนยัน"
         @primary="handleAddDoctor"
-        @secondary="emit('close')"
+        @secondary="handleClose"
     />
    </UiModal>
 </template>

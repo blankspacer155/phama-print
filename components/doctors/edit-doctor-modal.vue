@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Doctor } from '~/libs/types/doctor';
 import { useDoctorStorage } from '~/composables/use-doctor-storage';
+import { doctorNameSchema } from '~/libs/validators/doctor';
 
 const props = defineProps<{
    open?: boolean
@@ -11,16 +12,34 @@ const emit = defineEmits<{
    (e:'success'): void
 }>()
 
-const { updateDoctor } = useDoctorStorage()
-const name = ref<string>(props.target?.name || '')
-     // TODO :: add form control
-
-function handleUpdateDoctor(){
-     // TODO:: check duplicate name
-    if (props.target) {
-        updateDoctor({ ...props.target, name: name.value })
-        emit('success')
+const { updateDoctor,getDoctorByName } = useDoctorStorage()
+const {values,defineField,validate,errors,setErrors,resetForm} = useForm({
+    validationSchema: toTypedSchema(doctorNameSchema),
+    initialValues: {
+        name: props.target?.name || ''
     }
+})
+const [name] = defineField('name')
+
+async function handleUpdateDoctor(){
+     const {valid} = await validate()
+    if(!valid || !values.name || !props.target) return
+     //check duplicate name
+       if(getDoctorByName(values.name) && getDoctorByName(values.name)?.name != props.target.name){
+        setErrors({name: 'ชื่อหมอซ้ำ, กรุณาตรวจสอบใหม่อีกครั้ง'})
+        return
+    }
+
+    // trim name before save
+    const trimmedName = values.name.trimStart().trimEnd()
+    updateDoctor({ ...props.target, name: trimmedName })
+    resetForm()
+    emit('success')
+}
+
+function handleClose(){
+    resetForm()
+    emit('close')
 }
 
 onUpdated(() => {
@@ -30,20 +49,21 @@ onUpdated(() => {
 
 
 <template>
-   <UiModal :open="open" @close="$emit('close')">
+   <UiModal :open="open" @close="handleClose">
     <UiModalHeader
         title="แก้ไขชื่อหมอ"
     />
     <UiModalBody>
-        <UiFormControl required>
+        <UiFormControl :invalid="!!errors.name">
             <UiTextInput v-model="name" placeholder="ชื่อหมอ" />
+            <UiFormErrorMessage>{{ errors.name }}</UiFormErrorMessage>
         </UiFormControl>
     </UiModalBody>
     <UiModalFooter
         secondary-button-text="ยกเลิก"
         primary-button-text="ยืนยัน"
         @primary="handleUpdateDoctor"
-        @secondary="emit('close')"
+        @secondary="handleClose"
     />
    </UiModal>
 </template>

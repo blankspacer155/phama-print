@@ -17,6 +17,9 @@ importers:
       '@vee-validate/nuxt':
         specifier: ^4.15.1
         version: 4.15.1(magicast@0.5.2)(vue@3.5.30(typescript@5.9.3))
+      '@vee-validate/zod':
+        specifier: ^4.15.1
+        version: 4.15.1(vue@3.5.30(typescript@5.9.3))(zod@4.3.6)
       '@vuepic/vue-datepicker':
         specifier: ^12.1.0
         version: 12.1.0(vue@3.5.30(typescript@5.9.3))
@@ -56,6 +59,9 @@ importers:
       vue-router:
         specifier: ^5.0.3
         version: 5.0.3(@vue/compiler-sfc@3.5.30)(vue@3.5.30(typescript@5.9.3))
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
 
 packages:
 
@@ -1361,6 +1367,11 @@ packages:
 
   '@vee-validate/nuxt@4.15.1':
     resolution: {integrity: sha512-vy+BYUmwy7d01js8jg3qApyrE8/nJHbHvPZNYZSe+hTQEblNqyVt+MnD1incyxMCcivED8FX5w4rjxdoUn7iMQ==}
+
+  '@vee-validate/zod@4.15.1':
+    resolution: {integrity: sha512-329Z4TDBE5Vx0FdbA8S4eR9iGCFFUNGbxjpQ20ff5b5wGueScjocUIx9JHPa79LTG06RnlUR4XogQsjN4tecKA==}
+    peerDependencies:
+      zod: ^3.24.0
 
   '@vercel/nft@1.4.0':
     resolution: {integrity: sha512-rr7JVnI7YGjA4lngucrWjZ7eCOJZZQaDHB+5NRGOuNc+k4PU2Lb9PmYm8uBmW8qichF7WkR2RmwmhXHBhx6wzw==}
@@ -3673,6 +3684,9 @@ packages:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
 
+  zod@4.3.6:
+    resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
+
 snapshots:
 
   '@antfu/install-pkg@1.1.0':
@@ -4936,6 +4950,14 @@ snapshots:
       vee-validate: 4.15.1(vue@3.5.30(typescript@5.9.3))
     transitivePeerDependencies:
       - magicast
+      - vue
+
+  '@vee-validate/zod@4.15.1(vue@3.5.30(typescript@5.9.3))(zod@4.3.6)':
+    dependencies:
+      type-fest: 4.41.0
+      vee-validate: 4.15.1(vue@3.5.30(typescript@5.9.3))
+      zod: 4.3.6
+    transitivePeerDependencies:
       - vue
 
   '@vercel/nft@1.4.0(rollup@4.59.0)':
@@ -7492,3 +7514,5 @@ snapshots:
       archiver-utils: 5.0.2
       compress-commons: 6.0.2
       readable-stream: 4.7.0
+
+  zod@4.3.6: {}

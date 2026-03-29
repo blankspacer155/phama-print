@@ -22,6 +22,9 @@ export function useDoctorStorage(){
         },
         getDoctorById: (id: string) => {
             return doctorStorage.value.find((d: Doctor) => d.id === id);
+        },
+        getDoctorByName: (name: string) => {
+            return doctorStorage.value.find((d: Doctor) => d.name.trimStart().trimEnd() === name.trimStart().trimEnd());
         }
     };
 }
