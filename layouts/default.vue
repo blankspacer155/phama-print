@@ -10,5 +10,13 @@
       </ul>
     </nav>
     <slot />
+    <UiFixedFooter>
+      <div class=" w-full text-center">
+         <p class=" text-sm  text-white ">
+        &copy; บิ่มบิ้ม และเพื่อนๆ 2026. สงวนลิขสิทธิ์.
+      </p>
+      </div>
+     
+    </UiFixedFooter>
   </div>
 </template>

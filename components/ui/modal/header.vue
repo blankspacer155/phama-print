@@ -21,7 +21,7 @@ const { closeModal } = useModalInject()
     :class="hideCloseButton ? 'flex justify-center' : ''"
   >
     <div class="flex flex-col gap-1">
-      <h2 v-if="title" class="hl-20px-700 pr-8">{{ title }}</h2>
+      <h2 v-if="title" class="hl-20px-700  text-2xl pr-8">{{ title }}</h2>
       <p v-if="subtitle" class="de-14px-400 break-words text-gray-70">{{ subtitle }}</p>
     </div>
     <template v-if="!hideCloseButton">

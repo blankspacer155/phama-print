@@ -50,6 +50,9 @@ function handleSubmit(){
 <template>
     <UiFormContainer >
         <UiPanel variant="outline" class="mb-4 py-6">
+            <div class=" text-center ">
+                <p class=" text-2xl font-bold">สร้างรายการนัด</p>
+            </div>
             <div class="grid grid-cols-1 gap-4 p-6 lg:grid-cols-2">
                 <UiFormControl   class="col-span-1 lg:col-span-2">
                     <UiFormLabel>หมอผู้ฉีด</UiFormLabel>
@@ -65,8 +68,8 @@ function handleSubmit(){
                 </UiFormControl>
             </div>
              <div class="flex w-full gap-4 px-4  justify-center">
-                <UiButton @click="handleSubmit">พิมพ์</UiButton>
-                <UiButton @click="navigateTo('/')">กลับ</UiButton>
+                 <UiButton @click="navigateTo('/')">กลับ</UiButton>
+                 <UiButton @click="handleSubmit">พิมพ์</UiButton>
             </div>
         </UiPanel>
        

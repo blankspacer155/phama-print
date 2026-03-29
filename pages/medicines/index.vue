@@ -37,15 +37,25 @@ import { useMedicineStorage } from '~/composables/use-medicine-storage';
         }
 </script>
 <template>
-   <main class="container my-16">
-        <UiPanel variant="outline" class="px-6 py-6 flex flex-col items-center">
-            <div>
-               <h1 class="text-2xl font-bold mb-4">รายชื่อยา</h1>
+   <main class="container my-16 ">
+        <UiPanel variant="outline" class="px-6 py-6 flex flex-col items-center min-h-125">
+            <div class=" w-full grid grid-cols-3 items-center">
+               <div class="flex justify-start">
+                  <UiButton @click="navigateTo('/')" class=" place-self-start">กลับ</UiButton>
+               </div>
+               <div class=" text-center">
+                  <h1 class="text-2xl font-bold mb-4">รายชื่อยา</h1>
+               </div>
             </div>
             <div class="self-end">
                <UiButton @click="isOpenAddMedicineModal = true">เพิ่มยา</UiButton>
             </div>
-            <div class="flex flex-col  gap-2 w-full my-4  py-2">
+            <div v-if="medicines.length>0" class="flex flex-col  gap-2 w-full my-4  py-2">
+               <div  class="grid grid-cols-4 gap-4 px-4 py-2 font-semibold">
+                  <p>ชื่อยา</p>
+                  <p>เวลาของแต่ละเข็ม</p>
+                  <p>คำอธิบาย</p>
+               </div>
                <template v-for="medicine in medicines" :key="medicine.id">
                   <UiPanel variant="gray2" class="grid grid-cols-4 gap-4 px-4 py-2">
                      <p>{{medicine.name}}</p>
@@ -55,16 +65,18 @@ import { useMedicineStorage } from '~/composables/use-medicine-storage';
                      <p>{{ medicine.description }}</p>
                      <div class="flex justify-end">
                         <div class="flex gap-2 self-end ">
-                        <UiButton @click="handleClickEditMedicine(medicine)">edit</UiButton>
-                        <UiButton variant="danger" @click="handleClickDeleteMedicine(medicine)">delete</UiButton>
+                        <UiButton @click="handleClickEditMedicine(medicine)">แก้ไข</UiButton>
+                        <UiButton variant="danger" @click="handleClickDeleteMedicine(medicine)">ลบ</UiButton>
                      </div>
                      </div>
                   
                   
                   </UiPanel>
                </template>
-             
             </div>
+               <div v-else class="flex flex-col items-center gap-4 my-8 ">
+                  <p class="text-gray-500">ยังไม่มีรายการยา</p>
+               </div>
         </UiPanel>
         <UiDialog title="ยืนยันการลบยา" 
         :content="`คุณต้องการลบยา ${selectedMedicine?.name} หรือไม่?`" 
