@@ -4,6 +4,7 @@ import type { PatientRequest } from '~/libs/types/patient';
 import { useFormProvider } from '@/composables/use-form-context';
 import { useDoctorStorage } from '~/composables/use-doctor-storage';
 import { usePatientPdf } from '~/composables/use-patient-pdf';
+import { patientSchema } from '~/libs/validators/patient';
 
 const emit = defineEmits<{
     (e:'submit', data: PatientRequest): void
@@ -13,6 +14,7 @@ const { doctorOptions } = useDoctorStorage()
 const { medicineOptions } = useMedicineStorage()
 const {generatePatientPdf} = usePatientPdf()
 const form = useForm<PatientRequest>({
+    validationSchema: toTypedSchema(patientSchema),
     initialValues: {
         doctorId: '',
         date: '',
@@ -21,18 +23,15 @@ const form = useForm<PatientRequest>({
 })
 useFormProvider(form)
 
-const { defineField, resetForm} = form
+const { defineField, resetForm, errors, validate } = form
 
 const [doctorId] = defineField('doctorId')
 const [date] = defineField('date')
 const [medicineId] = defineField('medicineId')
 
-function handleSubmit(){
-
-    if (!medicineId.value || !date.value ) {
-        alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-        return;
-    }
+async function handleSubmit(){
+    const { valid } = await validate()
+    if (!valid) return
     
     const body: PatientRequest = {
         doctorId: doctorId.value,
@@ -58,13 +57,15 @@ function handleSubmit(){
                     <UiFormLabel>หมอผู้ฉีด</UiFormLabel>
                     <UiSelect v-model="doctorId" :options="doctorOptions" placeholder="กรุณาเลือกหมอผู้ฉีด" />
                 </UiFormControl>
-                <UiFormControl   class="col-span-1 lg:col-span-2">
+                <UiFormControl :invalid="!!errors.medicineId" class="col-span-1 lg:col-span-2">
                     <UiFormLabel>ชื่อยา</UiFormLabel>
                     <UiSelect v-model="medicineId" :options="medicineOptions" placeholder="กรุณาเลือกชื่อยา" />
+                    <UiFormErrorMessage>{{ errors.medicineId }}</UiFormErrorMessage>
                 </UiFormControl>
-                <UiFormControl   class="col-span-1 lg:col-span-2">
+                <UiFormControl :invalid="!!errors.date" class="col-span-1 lg:col-span-2">
                     <UiFormLabel>วันที่นัดหมาย</UiFormLabel>
                     <UiPickerDate v-model="date" placeholder="กรุณาเลือกวันที่นัดหมาย" />
+                    <UiFormErrorMessage>{{ errors.date }}</UiFormErrorMessage>
                 </UiFormControl>
             </div>
              <div class="flex w-full gap-4 px-4  justify-center">

@@ -7,7 +7,7 @@ export function useMedicineStorage(){
 
     return {
         medicines: medicineStorage,
-        medicineOptions: [ ...medicineStorage.value ].map((medicine: Medicine) => ({ name: medicine.name, value: medicine.id })),
+        medicineOptions: [{ name: '-- กรุณาเลือกยา --', value: '' },...medicineStorage.value.map((medicine: Medicine) => ({ name: medicine.name, value: medicine.id }))],
         medicineIntervalUnitsOptions: Object.entries(MEDICINE_INTERVAL_UNIT_LABELS).map(([key,value]) => ({ name:value, value:key })),
         addMedicine: (medicine: Medicine) => {
            medicineStorage.value.push(medicine);
