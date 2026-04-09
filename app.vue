@@ -1,3 +1,7 @@
+<script setup lang="ts">
+  const {setDefaultMedicine} = useMedicineStorage()
+  setDefaultMedicine()
+</script>
 <template>
   <div>
    <NuxtLayout>
