@@ -69,7 +69,8 @@ async function handleSubmit(){
                 </UiFormControl>
             </div>
              <div class="flex w-full gap-4 px-4  justify-center">
-                 <UiButton @click="navigateTo('/')">กลับ</UiButton>
+                 <UiButton @click="navigateTo('/medicines')">จัดการยา</UiButton>
+                 <UiButton @click="navigateTo('/doctors')">จัดการหมอ</UiButton>
                  <UiButton @click="handleSubmit">พิมพ์</UiButton>
             </div>
         </UiPanel>
