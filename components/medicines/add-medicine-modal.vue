@@ -21,7 +21,7 @@ const form = useForm<Medicine>({
         name: '',
         description: '',
         intervals: [0],
-        interval_unit: 'DAY',
+        interval_unit: 'MONTH',
         is_default: false
     }
 })
