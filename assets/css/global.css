@@ -3,9 +3,6 @@
 @import "./fonts.css";
 
 @layer base {
-  body {
-    background-color: grey;
-  }
 }
 
 @theme {
