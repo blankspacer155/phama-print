@@ -4,6 +4,7 @@ import type { PatientRequest } from "~/libs/types/patient";
 import { useDoctorStorage } from "./use-doctor-storage";
 import { useMedicineStorage } from "./use-medicine-storage";
 import { add } from "date-fns";
+import { getThaiVisualLength } from "~/libs/utils";
 
 export function usePatientPdf() {
 
@@ -51,6 +52,11 @@ export function usePatientPdf() {
     }
 
       // 1. Define your custom Thai font
+    const blankLength = 16;
+    const doctorNameLength = doctor ? getThaiVisualLength(doctor.name) : 0;
+    const frontBlank = '_'.repeat((blankLength - doctorNameLength) / 2);
+    const backBlank = '_'.repeat(blankLength - frontBlank.length - doctorNameLength);
+    const doctorNameWithBlanks = doctor? frontBlank + doctor.name + backBlank: '____________________' 
     const docDefinition: any = {
       // Small custom size (e.g., 80mm x 50mm for a label)
       pageSize: 'A4',
@@ -59,15 +65,15 @@ export function usePatientPdf() {
       content: [
         {
           text: 'โรงพยาบาลปทุมธานี',
-           margin:[180, 0, 0, 0]
+           margin:[275, 0, 0, 0]
         },
          {
           text: 'PATHUM THANI HOSPITAL',
-          margin:[180, 5, 0, 0] 
+          margin:[275, 5, 0, 0] 
         },
         {
           text:`ตารางฉีดวัคซีน ${medicine.name}`,
-          margin:[0, 10, 0, 0], 
+          margin:[0, 35, 0, 0], 
           style: 'header'
         },
         {
@@ -75,12 +81,12 @@ export function usePatientPdf() {
           margin: [0, 5, 0, 0] 
         },
         {
-          text: '_________________________________________________________________________________',
+          text: '_____________________________________________________________________________________________________________________________',
          
         },
         ...appointmentDateString.map((dateString,index)=>{
           return {
-          text: `เข็มที่ ${index + 1}: ${dateString}  ผู้ฉีด ${doctor ? doctor.name : '____________________'} วันที่ฉีด ____________________`,
+          text: `เข็มที่ ${index + 1}: ${dateString}  ผู้ฉีด ${doctorNameWithBlanks} วันที่ฉีด ____________________`,
           margin: [15, 10, 0, 0] ,
           style: 'big'
           }
