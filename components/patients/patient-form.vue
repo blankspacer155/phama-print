@@ -54,8 +54,8 @@ async function handleSubmit(){
             </div>
             <div class="grid grid-cols-1 gap-4 p-6 lg:grid-cols-2">
                 <UiFormControl   class="col-span-1 lg:col-span-2">
-                    <UiFormLabel>หมอผู้ฉีด</UiFormLabel>
-                    <UiSelect v-model="doctorId" :options="doctorOptions" placeholder="กรุณาเลือกหมอผู้ฉีด" />
+                    <UiFormLabel>ผู้ฉีด</UiFormLabel>
+                    <UiSelect v-model="doctorId" :options="doctorOptions" placeholder="กรุณาเลือกผู้ฉีด" />
                 </UiFormControl>
                 <UiFormControl :invalid="!!errors.medicineId" class="col-span-1 lg:col-span-2">
                     <UiFormLabel>ชื่อยา</UiFormLabel>
@@ -63,14 +63,14 @@ async function handleSubmit(){
                     <UiFormErrorMessage>{{ errors.medicineId }}</UiFormErrorMessage>
                 </UiFormControl>
                 <UiFormControl :invalid="!!errors.date" class="col-span-1 lg:col-span-2">
-                    <UiFormLabel>วันที่นัดหมาย</UiFormLabel>
-                    <UiPickerDate v-model="date" placeholder="กรุณาเลือกวันที่นัดหมาย" />
+                    <UiFormLabel>วันที่เริ่มฉีดเข็มแรก</UiFormLabel>
+                    <UiPickerDate v-model="date" placeholder="กรุณาเลือกวันที่" />
                     <UiFormErrorMessage>{{ errors.date }}</UiFormErrorMessage>
                 </UiFormControl>
             </div>
              <div class="flex w-full gap-4 px-4  justify-center">
-                 <UiButton @click="navigateTo('/medicines')">จัดการยา</UiButton>
-                 <UiButton @click="navigateTo('/doctors')">จัดการหมอ</UiButton>
+                 <UiButton @click="navigateTo('/medicines')">เพิ่มยา</UiButton>
+                 <UiButton @click="navigateTo('/doctors')">เพิ่มผู้ฉีด</UiButton>
                  <UiButton @click="handleSubmit">พิมพ์</UiButton>
             </div>
         </UiPanel>

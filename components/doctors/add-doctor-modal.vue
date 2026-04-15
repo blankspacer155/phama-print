@@ -26,7 +26,7 @@ async function handleAddDoctor(){
 
     // check duplicate name
     if(getDoctorByName(values.name)){
-        setErrors({name: 'ชื่อหมอซ้ำ, กรุณาตรวจสอบใหม่อีกครั้ง'})
+        setErrors({name: 'ชื่อผู้ฉีดซ้ำ, กรุณาตรวจสอบใหม่อีกครั้ง'})
         return
     }
 
@@ -48,11 +48,11 @@ function handleClose(){
 <template>
    <UiModal :open="open" @close="handleClose">
     <UiModalHeader
-        title="เพิ่มชื่อหมอ"
+        title="เพิ่มชื่อผู้ฉีด"
     />
     <UiModalBody>
         <UiFormControl  :invalid="!!errors.name" >
-            <UiTextInput v-model="name" placeholder="ชื่อหมอ" />
+            <UiTextInput v-model="name" placeholder="ชื่อผู้ฉีด" />
             <UiFormErrorMessage>{{ errors.name }}</UiFormErrorMessage>
         </UiFormControl>
     </UiModalBody>

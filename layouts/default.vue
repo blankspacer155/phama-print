@@ -13,7 +13,7 @@
     <UiFixedFooter>
       <div class=" w-full text-center">
          <p class=" text-sm  text-white ">
-        &copy; บิ่มบิ้ม และเพื่อนๆ 2026. สงวนลิขสิทธิ์.
+        &copy; ชนิสรา ปิ่นสุวรรณ และ ศิริประภา หมากสุข มหาวิทยาลัยเชียงใหม่ 2569. สงวนลิขสิทธิ์.
       </p>
       </div>
      

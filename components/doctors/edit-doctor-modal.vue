@@ -26,7 +26,7 @@ async function handleUpdateDoctor(){
     if(!valid || !values.name || !props.target) return
      //check duplicate name
        if(getDoctorByName(values.name) && getDoctorByName(values.name)?.name != props.target.name){
-        setErrors({name: 'ชื่อหมอซ้ำ, กรุณาตรวจสอบใหม่อีกครั้ง'})
+        setErrors({name: 'ชื่อผู้ฉีดซ้ำ, กรุณาตรวจสอบใหม่อีกครั้ง'})
         return
     }
 
@@ -51,11 +51,11 @@ onUpdated(() => {
 <template>
    <UiModal :open="open" @close="handleClose">
     <UiModalHeader
-        title="แก้ไขชื่อหมอ"
+        title="แก้ไขชื่อผู้ฉีด"
     />
     <UiModalBody>
         <UiFormControl :invalid="!!errors.name">
-            <UiTextInput v-model="name" placeholder="ชื่อหมอ" />
+            <UiTextInput v-model="name" placeholder="ชื่อผู้ฉีด" />
             <UiFormErrorMessage>{{ errors.name }}</UiFormErrorMessage>
         </UiFormControl>
     </UiModalBody>

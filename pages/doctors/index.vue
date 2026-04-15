@@ -34,15 +34,15 @@ import { useDoctorStorage } from '~/composables/use-doctor-storage';
                   <UiButton @click="navigateTo('/')" class=" place-self-start">กลับ</UiButton>
                </div>
                <div class=" text-center">
-                  <h1 class="text-2xl font-bold mb-4">รายชื่อหมอ</h1>
+                  <h1 class="text-2xl font-bold mb-4">รายชื่อผู้ฉีด</h1>
                </div>
             </div>
             <div class="self-end">
-               <UiButton @click="isOpenAddDoctorModal = true">เพิ่มหมอ</UiButton>
+               <UiButton @click="isOpenAddDoctorModal = true">เพิ่มผู้ฉีด</UiButton>
             </div>
             <div v-if="doctors.length>0" class="flex flex-col  gap-2 w-full my-4  py-2">
                <div class="font-semibold px-4 py-2">
-                  <p>ชื่อหมอ</p>
+                  <p>ชื่อผู้ฉีด</p>
                </div>
                <template v-for="doctor in doctors" :key="doctor.id">
                <UiPanel variant="gray2" class="flex gap-4 justify-between px-4 py-2">
@@ -56,7 +56,7 @@ import { useDoctorStorage } from '~/composables/use-doctor-storage';
                   </template>
             </div>
              <div v-else class="flex flex-col items-center gap-4 my-8 ">
-                  <p class="text-gray-500">ยังไม่มีรายชื่อหมอ</p>
+                  <p class="text-gray-500">ยังไม่มีรายชื่อผู้ฉีด</p>
                </div>
         </UiPanel>
         <UiDialog title="ยืนยันการลบชื่อ" 
