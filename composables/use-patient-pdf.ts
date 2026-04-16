@@ -61,7 +61,7 @@ export function usePatientPdf() {
       // Small custom size (e.g., 80mm x 50mm for a label)
       pageSize: 'A4',
       pageMargins: [15, 15, 5, 5], // [left, top, right, bottom] - Minimal margins
-      
+      pageOrientation: 'landscape',
       content: [
         {
           text: 'โรงพยาบาลปทุมธานี',
@@ -81,7 +81,7 @@ export function usePatientPdf() {
           margin: [0, 5, 0, 0] 
         },
         {
-          text: '_____________________________________________________________________________________________________________________________',
+          text: '__________________________________________________________________________________________________________________________',
          
         },
         ...appointmentDateString.map((dateString,index)=>{
