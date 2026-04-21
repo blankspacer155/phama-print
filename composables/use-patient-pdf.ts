@@ -43,10 +43,15 @@ export function usePatientPdf() {
     const appointmentDate:Date[] = []
     const appointmentDateString:string[] = []
     for(const interval of medicine.intervals){
-         const previousDate = appointmentDate.length === 0 ? initialDate : appointmentDate[appointmentDate.length - 1];
-         const result = add(previousDate!, { 
-        days: medicine.interval_unit === 'DAY' ? interval : 30*interval,    // use static 30 days for month calculation
-      });
+      // Calculate duration based on unit
+      // If 'MONTH', we use the 'months' property for calendar accuracy
+      // Otherwise, we use 'days'
+      const duration = medicine.interval_unit === 'DAY' 
+        ? { days: interval } 
+        : { months: interval }; 
+
+      // Always add to initialDate, not the previous result
+      const result = add(initialDate, duration);
       appointmentDate.push(result);
       appointmentDateString.push(result.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: '2-digit' }));
     }

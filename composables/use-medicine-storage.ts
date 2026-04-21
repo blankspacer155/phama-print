@@ -5,7 +5,7 @@ import type { Medicine } from "~/libs/types/medicine";
 const DEFAULT_MEDICINE_ID = 'default';
 const DEFAULT_MEDICINE: Medicine = {
     id: DEFAULT_MEDICINE_ID,
-    name: 'Hepatitis B Virus',
+    name: 'Hepatitis B Vaccine',
     description: 'ฉีดเข้ากล้ามเนื้อ 40 mcg ที่ 0, 1, 2 และ 6 เดือน',
     intervals: [0,1,2,6],
     interval_unit: 'MONTH',
