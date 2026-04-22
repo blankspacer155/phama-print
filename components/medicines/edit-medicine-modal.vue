@@ -100,10 +100,15 @@ onUpdated(() => {
         </div>
         <div class="grid grid-cols-2 gap-2">
             <template v-for="(_, index) in intervals" :key="index">
-                <UiFormLabel>ระยะเวลาห่างเข็มที่ {{index+1}}</UiFormLabel>
+                <template v-if="index === 0">
+                    <UiFormLabel>เข็มแรก</UiFormLabel>
+                </template>
+                <template v-else>
+                    <UiFormLabel>เข็มที่ {{index+1}} (ระยะเวลาห่างจากเข็มแรก)</UiFormLabel>
+                </template>
                 <div class="flex gap-2">
                 <UiFormControl :disabled="index==0" required>
-                    <UiNumberInput v-model="intervals[index]"  placeholder="ระยะเวลาห่างเข็ม (วัน)" />
+                    <UiNumberInput v-model="intervals[index]"  :placeholder="`ระยะเวลาห่างเข็ม (${intervalUnit === 'DAY' ? 'วัน' : 'เดือน'})`" />
                 </UiFormControl> 
                 <p>{{ intervalUnit === 'DAY' ? 'วัน' : 'เดือน' }}</p>
                 </div>       
