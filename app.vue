@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  const {setDefaultMedicine} = useMedicineStorage()
-  setDefaultMedicine()
+  const {setDefaultMedicines} = useMedicineStorage()
+  setDefaultMedicines()
 </script>
 <template>
   <div>

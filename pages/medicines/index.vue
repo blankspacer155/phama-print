@@ -3,9 +3,10 @@ import AddMedicineModal from '~/components/medicines/add-medicine-modal.vue';
 import EditMedicineModal from '~/components/medicines/edit-medicine-modal.vue';
 import type { Medicine, MedicineIntervalUnit } from '~/libs/types/medicine';
 import { useMedicineStorage } from '~/composables/use-medicine-storage';
+import {DEFAULT_MEDICINE_IDS} from '~/composables/use-medicine-storage'
 
 
-      const { medicines,deleteMedicine,toggleDefaultMedicines,isFixedMedicine } = useMedicineStorage()
+      const { medicines,deleteMedicine,isFixedMedicine } = useMedicineStorage()
       const selectedMedicine = ref<Medicine>()
       const isOpenDeleteDialog = ref<boolean>(false)
       const isOpenAddMedicineModal = ref<boolean>(false)
@@ -13,11 +14,15 @@ import { useMedicineStorage } from '~/composables/use-medicine-storage';
 
       const sortedMedicines = computed(() => {
          return medicines.value.slice().sort((a, b) => {
-            if (a.is_default && !b.is_default) {
+            const aIsDefault = DEFAULT_MEDICINE_IDS.includes(a.id);
+            const bIsDefault = DEFAULT_MEDICINE_IDS.includes(b.id);
+            if (aIsDefault && !bIsDefault) {
                return -1; // a comes before b
-            } else if (!a.is_default && b.is_default) {
+            } else if (!aIsDefault && bIsDefault) {
                return 1; // b comes before a
-            } else {
+            } else if (aIsDefault && bIsDefault) {
+               return a.id.localeCompare(b.id); // sort by id if both are default
+            } else{
                return 0; // maintain original order
             }
          });})
