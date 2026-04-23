@@ -63,57 +63,60 @@ export function usePatientPdf() {
     const backBlank = '_'.repeat(blankLength - frontBlank.length - doctorNameLength);
     const doctorNameWithBlanks = doctor? frontBlank + doctor.name + backBlank: '____________________' 
     const docDefinition: any = {
-      // Small custom size (e.g., 80mm x 50mm for a label)
-      pageSize: 'A4',
-      pageMargins: [15, 15, 5, 5], // [left, top, right, bottom] - Minimal margins
+      // pdfmake 1 cm = 28.346 points
+      pageSize: {
+        width: 255.11, // 9 cm
+        height: 170.08 // 6 cm
+      },
+      pageMargins: [5, 5, 2, 2], // [left, top, right, bottom] - Minimal margins
       pageOrientation: 'landscape',
       content: [
         {
           text: 'โรงพยาบาลปทุมธานี',
-           margin:[275, 0, 0, 0]
+           margin:[170, 0, 0, 0]
         },
          {
           text: 'PATHUM THANI HOSPITAL',
-          margin:[275, 5, 0, 0] 
+          margin:[170, 1, 0, 0] 
         },
         {
           text:`ตารางฉีดวัคซีน ${medicine.name}`,
-          margin:[0, 35, 0, 0], 
+          margin:[0, 30, 0, 0], 
           style: 'header'
         },
         {
           text: medicine.description,
-          margin: [0, 5, 0, 0] 
+          margin: [0, 1, 0, 0] 
         },
         {
           text: '__________________________________________________________________________________________________________________________',
-         
+          margin: [0, 0, 0, 5]
         },
         ...appointmentDateString.map((dateString,index)=>{
           return {
           text: `เข็มที่ ${index + 1}: ${dateString}  ผู้ฉีด ${doctorNameWithBlanks} วันที่ฉีด ____________________`,
-          margin: [15, 10, 0, 0] ,
+          margin: [10, 1, 0, 0] ,
           style: 'big'
           }
         }),
         {
           text: 'นำบัตรมาฉีดยาต่อตามวันที่ระบุ ที่แผนกผู้ป่วยนอก',
-          margin: [15, 10, 0, 0]
+          margin: [10, 5, 0, 0]
         }
       ],
 
       defaultStyle: {
         font: 'Sarabun', // Must match the name in your VFS
-        fontSize: 10
+        fontSize: 6
       },
 
       styles: {
         header: {
-          fontSize: 16,
+          fontSize: 10,
           bold: true
         },
         big:{
-          fontSize: 14,
+          fontSize: 8,
         }
       }
     };
