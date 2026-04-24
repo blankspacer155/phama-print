@@ -57,66 +57,71 @@ export function usePatientPdf() {
     }
 
       // 1. Define your custom Thai font
-    const blankLength = 16;
+    const blankLength = 12;
     const doctorNameLength = doctor ? getThaiVisualLength(doctor.name) : 0;
     const frontBlank = '_'.repeat((blankLength - doctorNameLength) / 2);
     const backBlank = '_'.repeat(blankLength - frontBlank.length - doctorNameLength);
-    const doctorNameWithBlanks = doctor? frontBlank + doctor.name + backBlank: '____________________' 
+    const doctorNameWithBlanks = doctor? frontBlank + doctor.name + backBlank: '_______________' 
     const docDefinition: any = {
       // pdfmake 1 cm = 28.346 points
       pageSize: {
         width: 255.11, // 9 cm
         height: 170.08 // 6 cm
       },
-      pageMargins: [5, 5, 2, 2], // [left, top, right, bottom] - Minimal margins
+      pageMargins: [15, 5, 2, 2], // [left, top, right, bottom] - Minimal margins
       pageOrientation: 'landscape',
       content: [
         {
           text: 'โรงพยาบาลปทุมธานี',
-           margin:[170, 0, 0, 0]
+           margin:[150, 0, 0, 0],
+           style: 'big'
         },
          {
           text: 'PATHUM THANI HOSPITAL',
-          margin:[170, 1, 0, 0] 
+          margin:[150, 1, 0, 0] 
+        },
+         {
+          text: 'สติกเกอร์',
+          style: 'big',
+          color: 'red',
+          margin:[30, 10, 0, 0] 
         },
         {
-          text:`ตารางฉีดวัคซีน ${medicine.name}`,
+          text:[
+            {text:'นัดฉีด ',style:'big'},
+            {text: medicine.name,style: 'header'}
+          ],
           margin:[0, 30, 0, 0], 
-          style: 'header'
         },
         {
           text: medicine.description,
-          margin: [0, 3, 0, 0] 
-        },
-        {
-          text: '__________________________________________________________________________________________________________________________',
-          margin: [0, 0, 0, 5]
+          margin: [0, 1, 0, 2] 
         },
         ...appointmentDateString.map((dateString,index)=>{
           return {
-          text: `เข็มที่ ${index + 1}: ${dateString}  ผู้ฉีด ${doctorNameWithBlanks} วันที่ฉีด ____________________`,
-          margin: [10, 1, 0, 0] ,
+          text: `เข็มที่ ${index + 1}: ${dateString}  ผู้ฉีด ${doctorNameWithBlanks} วันที่ฉีด _______________`,
+          margin: [10, 0, 0, 0] ,
           style: 'big'
           }
         }),
         {
           text: 'นำบัตรมาฉีดยาต่อตามวันที่ระบุ ที่แผนกผู้ป่วยนอก',
-          margin: [10, 5, 0, 0]
+          margin: [10, 3, 0, 0]
         }
       ],
 
       defaultStyle: {
         font: 'Sarabun', // Must match the name in your VFS
-        fontSize: 6
+        fontSize: 7
       },
 
       styles: {
         header: {
-          fontSize: 10,
+          fontSize: 11,
           bold: true
         },
         big:{
-          fontSize: 8,
+          fontSize: 9,
         }
       }
     };

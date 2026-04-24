@@ -5,7 +5,7 @@ import type { Medicine } from "~/libs/types/medicine";
 export const DEFAULT_MEDICINE_IDS = ['default', 'default1'];
 const DEFAULT_MEDICINES: Medicine[] = [{
     id: DEFAULT_MEDICINE_IDS[0]!,
-    name: 'Hepatitis B Vaccine (for CKD 3-4)',
+    name: 'วัคซีนไวรัสตับอักเสบ บี (HB vacc.; CKD3-4)',
     description: 'ฉีดเข้ากล้ามเนื้อ 20 mcg ที่ 0, 1, 2 และ 6 เดือน',
     intervals: [0,1,2,6],
     interval_unit: 'MONTH',
@@ -13,7 +13,7 @@ const DEFAULT_MEDICINES: Medicine[] = [{
 },
 {
     id: DEFAULT_MEDICINE_IDS[1]!,
-    name: 'Hepatitis B Vaccine (for CKD 5ขึ้นไป)',
+    name: 'วัคซีนไวรัสตับอักเสบ บี (HB vacc.; CKD5 ขึ้นไป)',
     description: 'ฉีดเข้ากล้ามเนื้อ 40 mcg ที่ 0, 1, 2 และ 6 เดือน',
     intervals: [0,1,2,6],
     interval_unit: 'MONTH',
